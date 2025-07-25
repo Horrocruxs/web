@@ -348,16 +348,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function bindEventListeners() {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                DOM.preloader.style.opacity = '0';
-                DOM.verificationGate.style.opacity = '1';
-                setTimeout(() => {
-                    DOM.preloader.style.display = 'none';
-                }, 1000); 
-            }, 4000); 
-        });
-
         DOM.verifyButton.addEventListener('click', handleVerification);
         DOM.magicIdInput.addEventListener('keypress', (event) => { if (event.key === 'Enter') handleVerification(); });
         DOM.signButton.addEventListener('click', handleSignContract);
