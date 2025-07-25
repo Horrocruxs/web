@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     
     <!-- Chosen Palette: Magical Neumorphism -->
-    <!-- Application Structure Plan: A thematic, section-based SPA with a Neumorphic design, gated by a magical verification screen. The structure remains focused on usability: an initial visual summary (El Vínculo), introduction of characters (Las Partes), new detailed character profiles (Perfiles Vinculantes), explorable rules via interactive cards (Las Cláusulas), the emotional core (El Anexo), and a final signing ceremony. The Neumorphic style enhances the magical artifact feel. -->
+    <!-- Application Structure Plan: A thematic, section-based SPA with a Neumorphic design, now introduced by a magical loading animation. After the animation, the user is gated by a verification screen. The core structure remains focused on usability: an initial visual summary (El Vínculo), introduction of characters (Las Partes), explorable rules via interactive cards (Las Cláusulas), the emotional core (El Anexo), and a final signing ceremony. -->
     <!-- Visualization & Content Choices: 
-        - Character Profiles: New section with two neumorphic cards, one for each person. Information is structured with subheadings and icons for scannability. Age is dynamically calculated with JS. Goal: Add depth and personality to the pact participants.
+        - Preloader Animation: A new full-screen preloader that displays the title "Horcruxes" with a magical glow and fade effect. Goal: Create an immersive, magical entry into the application.
         - Verification Gate: Neumorphic inset input field and an extruded button. Goal: Introduce the tactile, magical UI style from the start.
         - Signing Ceremony: The signing button transitions to an inset (pressed) state on click. The download button appears with the same extruded style. Goal: Provide satisfying visual feedback for a key interaction.
         - Pact Core: The soul-link diagram is redesigned with Neumorphic principles. The orbs are extruded circles, and the link is an inset channel. Goal: Integrate the core visual metaphor into the new design language.
@@ -104,16 +104,47 @@
         }
         .vengeance-mode h1, .vengeance-mode .text-gryffindor { color: var(--gryffindor-red); text-shadow: 0 0 8px var(--gryffindor-red); }
         .vengeance-mode h2, .vengeance-mode .text-slytherin { color: var(--slytherin-green); text-shadow: 0 0 8px var(--slytherin-green); }
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        #preloader-title {
+            background: linear-gradient(90deg, var(--slytherin-green), var(--gryffindor-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: glow-text 4s ease-in-out forwards;
+        }
+        @keyframes glow-text {
+            0% { opacity: 0; text-shadow: none; }
+            50% { opacity: 1; text-shadow: 0 0 10px var(--accent-gold), 0 0 20px var(--accent-gold); }
+            100% { opacity: 0; text-shadow: none; }
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <div id="verification-gate" class="min-h-screen flex items-center justify-center bg-[var(--bg-color)] p-4">
+    <div id="preloader" class="preloader">
+        <h1 id="preloader-title" class="text-6xl md:text-8xl font-cinzel text-transparent">
+            Horcruxes
+        </h1>
+    </div>
+
+    <div id="verification-gate" class="min-h-screen flex items-center justify-center bg-[var(--bg-color)] p-4 opacity-0 transition-opacity duration-1000">
         <div class="max-w-md w-full text-center p-8 rounded-2xl neumorphic-flat">
             <h2 class="text-3xl font-cinzel text-gray-700 mb-4">Portal de Verificación Mágica</h2>
             <p class="text-[var(--text-color)] mb-6">Solo las partes vinculantes pueden acceder a este pacto. Ingrese su Identificador Mágico para continuar.</p>
             <div class="mb-4">
-                <label for="magic-id" class="block text-sm font-medium text-[var(--text-color)] mb-2">Identificador Mágico ("DNI")</label>
+                <label for="magic-id" class="block text-sm font-medium text-[var(--text-color)] mb-2">Identificador Mágico</label>
                 <input type="password" id="magic-id" class="text-center block w-full px-3 py-3 border-none rounded-2xl neumorphic-inset focus:outline-none sm:text-sm">
             </div>
             <button id="verify-button" class="w-full text-white py-3 px-4 rounded-2xl font-cinzel neumorphic-flat bg-[var(--gryffindor-red)] hover:bg-red-900 active:neumorphic-pressed">Verificar</button>
@@ -132,7 +163,6 @@
                             <div class="ml-10 flex items-baseline space-x-4">
                                 <a href="#vinculo" class="nav-link">El Vínculo</a>
                                 <a href="#partes" class="nav-link">Las Partes</a>
-                                <a href="#perfiles" class="nav-link">Perfiles</a>
                                 <a href="#clausulas" class="nav-link">Las Cláusulas</a>
                                 <a href="#anexo" class="nav-link">Anexo</a>
                                 <a href="#sello" class="nav-link">El Sello</a>
@@ -190,44 +220,6 @@
                         <h3 class="text-xl font-cinzel text-purple-800">Cosmo</h3>
                         <p class="text-sm text-[var(--text-color)]">Familiar del Pacto</p>
                         <p class="text-xs mt-2 font-bold text-purple-800">KNEAZLE</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="perfiles" class="mb-20 py-10">
-                <h2 class="text-3xl text-center mb-12 font-cinzel text-gray-700">Perfiles Vinculantes</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Perfil de Anthony -->
-                    <div class="neumorphic-flat p-8">
-                        <h3 class="text-2xl font-cinzel text-[var(--slytherin-green)] mb-6">Anthony J. Torres Lozano</h3>
-                        <div class="space-y-4 text-left">
-                            <p><strong>🐍 Casa:</strong> Slytherin</p>
-                            <p><strong>🎂 Cumpleaños:</strong> 20 de mayo de 2001 (<span id="anthony-age"></span> años)</p>
-                            <h4 class="font-cinzel pt-4 border-t border-dashed border-[var(--dark-shadow)]">Mundo Mágico</h4>
-                            <p><strong>🪄 Hechizo Favorito:</strong> Sectumsempra</p>
-                            <p><strong>🦌 Patronus:</strong> Ciervo</p>
-                            <p><strong>🌿 Varita:</strong> Madera de tejo, núcleo de fibra de corazón de dragón, 32 cm, inflexible</p>
-                             <h4 class="font-cinzel pt-4 border-t border-dashed border-[var(--dark-shadow)]">Mundo Muggle</h4>
-                            <p><strong>🎨 Color Favorito:</strong> Verde esmeralda</p>
-                            <p><strong>🍰 Postre Favorito:</strong> Tiramisú</p>
-                            <p><strong>🎮 Hobby:</strong> Videojuegos de estrategia</p>
-                        </div>
-                    </div>
-                    <!-- Perfil de Lucila -->
-                    <div class="neumorphic-flat p-8">
-                        <h3 class="text-2xl font-cinzel text-[var(--gryffindor-red)] mb-6">Lucila M. Villalobos Yactayo</h3>
-                        <div class="space-y-4 text-left">
-                            <p><strong>🦁 Casa:</strong> Gryffindor</p>
-                            <p><strong>🎂 Cumpleaños:</strong> 25 de agosto de 1999 (<span id="lucila-age"></span> años)</p>
-                            <h4 class="font-cinzel pt-4 border-t border-dashed border-[var(--dark-shadow)]">Mundo Mágico</h4>
-                            <p><strong>🪄 Hechizo Favorito:</strong> Expecto Patronum</p>
-                            <p><strong>🦦 Patronus:</strong> Nutria</p>
-                            <p><strong>🍇 Varita:</strong> Madera de vid, núcleo de pelo de unicornio, 27 cm, flexible</p>
-                             <h4 class="font-cinzel pt-4 border-t border-dashed border-[var(--dark-shadow)]">Mundo Muggle</h4>
-                            <p><strong>🎨 Color Favorito:</strong> Borgoña</p>
-                            <p><strong>🍓 Postre Favorito:</strong> Cheesecake de fresa</p>
-                            <p><strong>📚 Hobby:</strong> Leer novelas de fantasía</p>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -306,6 +298,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const preloader = document.getElementById('preloader');
             const verificationGate = document.getElementById('verification-gate');
             const contractContent = document.getElementById('contract-content');
             const magicIdInput = document.getElementById('magic-id');
@@ -317,8 +310,8 @@
             const vengeanceTrigger = document.getElementById('vengeance-trigger');
 
             const parties = [
-                { id: '72808434', name: 'Anthony Junior Torres Lozano', house: 'Casa Slytherin', houseColor: 'text-[var(--slytherin-green)]', dob: '2001-05-20' },
-                { id: '75391263', name: 'Lucila Mia Villalobos Yactayo', house: 'Casa Gryffindor', houseColor: 'text-[var(--gryffindor-red)]', dob: '1999-08-25' }
+                { id: '72808434', name: 'Anthony Junior Torres Lozano', house: 'Casa Slytherin', houseColor: 'text-[var(--slytherin-green)]' },
+                { id: '75391263', name: 'Lucila Mia Villalobos Yactayo', house: 'Casa Gryffindor', houseColor: 'text-[var(--gryffindor-red)]' }
             ];
             let currentSigner = null;
             let jsPdfLoaded = false;
@@ -348,21 +341,7 @@
                 document.head.appendChild(script);
             }
 
-            function calculateAge(dobString) {
-                const dob = new Date(dobString);
-                const today = new Date('2025-07-25T00:00:00');
-                let age = today.getFullYear() - dob.getFullYear();
-                const m = today.getMonth() - dob.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-                    age--;
-                }
-                return age;
-            }
-
             function initializeContractView() {
-                document.getElementById('anthony-age').textContent = calculateAge(parties[0].dob);
-                document.getElementById('lucila-age').textContent = calculateAge(parties[1].dob);
-
                 const container = document.getElementById('clauses-container');
                 container.innerHTML = '';
                 clauses.forEach(clause => {
@@ -683,6 +662,16 @@
             function activateVengeanceMode() {
                 document.body.classList.toggle('vengeance-mode');
             }
+
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    verificationGate.style.opacity = '1';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 1000); 
+                }, 4000); 
+            });
 
             verifyButton.addEventListener('click', handleVerification);
             magicIdInput.addEventListener('keypress', function(event) { if (event.key === 'Enter') handleVerification(); });
