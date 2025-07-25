@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         DOM.greetingMessage.textContent = greeting;
         DOM.greetingName.textContent = state.currentSigner.name;
-        DOM.greetingName.className = `mt-4 text-2xl md:text-4xl font-cinzel ${state.currentSigner.houseColor}`;
+        DOM.greetingName.className = `mt-4 text-2xl md:text-4xl font-cinzel text-center ${state.currentSigner.houseColor}`;
 
         DOM.greetingScreen.classList.remove('hidden');
         setTimeout(() => {
