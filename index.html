@@ -53,6 +53,15 @@
         </section>
     </main>
 
+    <div id="notification-popup" class="fixed inset-0 z-[9999] items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden">
+        <div class="neumorphic-flat p-8 max-w-sm w-full text-center">
+            <div class="text-5xl mb-4">📜</div>
+            <h3 class="text-2xl font-cinzel text-[var(--accent-gold)]">Notificación Mágica</h3>
+            <p class="my-4 text-[var(--text-color)]">Tienes un hechizo vinculante pendiente de tu firma. Tu presencia es requerida para sellar el pacto.</p>
+            <button id="close-notification-button" class="neumorphic-flat text-white py-2 px-6 font-cinzel bg-[var(--slytherin-green)] active:neumorphic-pressed">Entendido</button>
+        </div>
+    </div>
+
     <script src="script.js" defer></script>
 </body>
 </html>

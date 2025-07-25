@@ -11,36 +11,31 @@ document.addEventListener('DOMContentLoaded', function () {
         greetingScreen: document.getElementById('greeting-screen'),
         greetingMessage: document.getElementById('greeting-message'),
         greetingName: document.getElementById('greeting-name'),
+        notificationPopup: document.getElementById('notification-popup'),
+        closeNotificationButton: document.getElementById('close-notification-button')
     };
 
     const DATA = {
         parties: [
             { id: '72808434', name: 'Anthony J. Torres Lozano', house: 'Slytherin', houseColor: 'text-[var(--slytherin-green)]', dob: '2001-05-20', spell: 'Avada Kedavra', patronus: 'Ciervo', wand: 'Madera de tejo, núcleo de fibra de corazón de dragón, 32 cm, inflexible', color: 'Negro', dessert: 'Pie de Manzana', hobby: 'Tocar la guitarra' },
             { id: '75391263', name: 'Lucila M. Villalobos Yactayo', house: 'Gryffindor', houseColor: 'text-[var(--gryffindor-red)]', dob: '1999-08-25', spell: 'Expecto Patronum', patronus: 'Nutria', wand: 'Madera de vid, núcleo de pelo de unicornio, 27 cm, flexible', color: 'Lila', dessert: 'Milkshake de Chocolate', hobby: 'Escuchar música' }
-        ]
+        ],
+        pacts: {
+            horcruxes: { version: '1.0' }
+        }
     };
 
     let state = {
         currentSigner: null,
-        signatures: JSON.parse(sessionStorage.getItem('pactSignatures')) || {}
+        signatures: JSON.parse(localStorage.getItem('pactSignatures')) || {}
     };
 
-    function calculateAge(dobString) {
-        const dob = new Date(dobString.replace(/-/g, '/'));
-        const today = new Date();
-        let age = today.getFullYear() - dob.getFullYear();
-        const m = today.getMonth() - dob.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-            age--;
-        }
-        return age;
-    }
-
     function buildProfileCard(party) {
-        const signatureInfo = state.signatures[party.id] 
+        const pactId = `horcruxes_v${DATA.pacts.horcruxes.version}`;
+        const signatureInfo = state.signatures[pactId] && state.signatures[pactId][party.id] 
             ? `<div class="mt-4 pt-4 border-t border-dashed border-[var(--accent-gold)]">
                  <p class="font-cinzel text-sm text-[var(--accent-gold)]">Pacto Firmado</p>
-                 <p class="text-xs text-gray-500">${new Date(state.signatures[party.id]).toLocaleString('es-PE')}</p>
+                 <p class="text-xs text-gray-500">${new Date(state.signatures[pactId][party.id]).toLocaleString('es-PE')}</p>
                </div>` 
             : '<div class="mt-4 pt-4 border-t border-dashed border-[var(--dark-shadow)]"><p class="font-cinzel text-sm text-gray-500">Pendiente de Firma</p></div>';
 
@@ -66,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ${signatureInfo}
             </div>
         `;
+        DOM.profilesContainer.innerHTML = '';
         DOM.profilesContainer.appendChild(card);
     }
 
@@ -112,9 +108,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 DOM.greetingScreen.classList.add('hidden');
                 DOM.mainContent.classList.remove('hidden');
                 setTimeout(() => DOM.mainContent.style.opacity = '1', 10);
-                buildProfileCard(state.currentSigner);
+                initializeProfileView();
             }, 1000);
         }, 3000);
+    }
+
+    function checkPendingPacts() {
+        const pactId = `horcruxes_v${DATA.pacts.horcruxes.version}`;
+        const hasSigned = state.signatures[pactId] && state.signatures[pactId][state.currentSigner.id];
+        if (!hasSigned) {
+            DOM.notificationPopup.classList.remove('hidden');
+        }
+    }
+
+    function initializeProfileView() {
+        buildProfileCard(state.currentSigner);
+        checkPendingPacts();
     }
 
     function checkSession() {
@@ -127,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 DOM.verificationGate.classList.add('hidden');
                 DOM.mainContent.classList.remove('hidden');
                 DOM.mainContent.style.opacity = '1';
-                buildProfileCard(state.currentSigner);
+                initializeProfileView();
             }
         } else {
             showVerificationFlow();
@@ -148,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     DOM.verifyButton.addEventListener('click', handleVerification);
     DOM.magicIdInput.addEventListener('keypress', (event) => { if (event.key === 'Enter') handleVerification(); });
+    DOM.closeNotificationButton.addEventListener('click', () => DOM.notificationPopup.classList.add('hidden'));
 
     checkSession();
 });
