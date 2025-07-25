@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const DATA = {
         parties: [
-            { id: '72808434', name: 'Anthony J. Torres Lozano', house: 'Slytherin', houseColor: 'text-[var(--slytherin-green)]', dob: '2001-05-20', spell: 'Sectumsempra', patronus: 'Ciervo', wand: 'Madera de tejo, núcleo de fibra de corazón de dragón, 32 cm, inflexible', color: 'Verde esmeralda', dessert: 'Tiramisú', hobby: 'Videojuegos de estrategia' },
-            { id: '75391263', name: 'Lucila M. Villalobos Yactayo', house: 'Gryffindor', houseColor: 'text-[var(--gryffindor-red)]', dob: '1999-08-25', spell: 'Expecto Patronum', patronus: 'Nutria', wand: 'Madera de vid, núcleo de pelo de unicornio, 27 cm, flexible', color: 'Borgoña', dessert: 'Cheesecake de fresa', hobby: 'Leer novelas de fantasía' }
+            { id: '72808434', name: 'Anthony J. Torres Lozano', house: 'Slytherin', houseColor: 'text-[var(--slytherin-green)]', dob: '2001-05-20', spell: 'Avada Kedavra', patronus: 'Ciervo', wand: 'Madera de tejo, núcleo de fibra de corazón de dragón, 32 cm, inflexible', color: 'Negro', dessert: 'Pie de Manzana', hobby: 'Tocar la guitarra' },
+            { id: '75391263', name: 'Lucila M. Villalobos Yactayo', house: 'Gryffindor', houseColor: 'text-[var(--gryffindor-red)]', dob: '1999-08-25', spell: 'Expecto Patronum', patronus: 'Nutria', wand: 'Madera de vid, núcleo de pelo de unicornio, 27 cm, flexible', color: 'Lila', dessert: 'Milkshake de Chocolate', hobby: 'Escuchar música' }
         ]
     };
 
