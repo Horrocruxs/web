@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             { title: 'Protocolo de Comunicación', icon: '🔮', content: 'Para facilitar la comunicación directa, LAS PARTES VINCULANTES encantan un par de espejos de obsidiana que servirán como canal. La parte supérstite podrá convocar una conversación lúcida con el fragmento del fallecido a través de dichos artefactos.' },
             { title: 'Obligaciones Recíprocas', icon: '🤝', content: 'Ambas partes juran solemnemente: a) No procurar jamás la remoción del fragmento, b) Proteger su propia integridad, c) Reconocer la movilidad universal del pacto, d) Mantener neutralidad entre Casas, e) Realizar un ritual anual de sincronización anímica.' },
             { title: 'Del Familiar del Pacto', icon: '🐾', content: 'Se designa a un leal Kneazle de nombre "Kid" como el Familiar del Pacto. Kid actuará como guardián físico y espiritual del vínculo. A la muerte de una de las partes, quedará bajo el cuidado de la supérstite.' },
-            { title: 'Cláusula de Venganza Mutua', icon: '⚔️', content: 'Si una de las partes es asesinada, el fragmento de su alma otorgará a la parte supérstite acceso temporal a sus habilidades mágicas más potentes, con el fin de asegurar que se haga justicia.' },
+            { title: 'Cláusula de Venganza Mutua', icon: '⚔️', content: 'Si una de las partes es asesinada, el fragmento de su alma otorgará a la parte supérst-ite acceso temporal a sus habilidades mágicas más potentes, con el fin de asegurar que se haga justicia.' },
             { title: 'Legado Mágico Conjunto', icon: '🏛️', content: 'En caso de disolución del pacto por destrucción de ambas partes, todos sus bienes mágicos se consolidarán en una única bóveda en Gringotts, bajo el nombre "Legado Torres-Villalobos".' },
             { title: 'Carácter Irreversible', icon: '♾️', content: 'La unión anímica creada por este pacto es perpetua y su existencia está intrínsecamente ligada a la vida de su respectivo receptáculo.' },
             { title: 'Destrucción de los Horcruxes', icon: '🔥', content: 'El presente vínculo solo podrá ser disuelto por la destrucción total e irreparable de ambos receptáculos vivientes mediante una sustancia o poder mágico de potencia destructiva extrema (equivalente, como mínimo, al veneno de Basilisco o al Fuego Maligno).' },
@@ -348,16 +348,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function bindEventListeners() {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                DOM.preloader.style.opacity = '0';
-                DOM.verificationGate.style.opacity = '1';
-                setTimeout(() => {
-                    DOM.preloader.style.display = 'none';
-                }, 1000); 
-            }, 4000); 
-        });
-
         DOM.verifyButton.addEventListener('click', handleVerification);
         DOM.magicIdInput.addEventListener('keypress', (event) => { if (event.key === 'Enter') handleVerification(); });
         DOM.signButton.addEventListener('click', handleSignContract);
@@ -377,6 +367,38 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+    
+    function checkSession() {
+        const storedSignerId = localStorage.getItem('currentSignerId');
+        if (storedSignerId) {
+            const party = DATA.parties.find(p => p.id === storedSignerId);
+            if (party) {
+                state.currentSigner = party;
+                DOM.preloader.style.display = 'none';
+                DOM.verificationGate.classList.add('hidden');
+                DOM.contractContent.classList.remove('hidden');
+                DOM.contractContent.style.opacity = '1';
+                initializeContractView();
+            } else {
+                showVerificationFlow();
+            }
+        } else {
+            showVerificationFlow();
+        }
+    }
+
+    function showVerificationFlow() {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                DOM.preloader.style.opacity = '0';
+                DOM.verificationGate.style.opacity = '1';
+                setTimeout(() => {
+                    DOM.preloader.style.display = 'none';
+                }, 1000); 
+            }, 4000); 
+        });
+    }
 
     bindEventListeners();
+    checkSession();
 });

@@ -14,6 +14,26 @@ document.addEventListener('DOMContentLoaded', function () {
         signatures: JSON.parse(localStorage.getItem('pactSignatures')) || {}
     };
 
+    function checkSession() {
+        const storedSignerId = localStorage.getItem('currentSignerId');
+        if (!storedSignerId) {
+            window.location.href = 'index.html';
+        } else {
+            buildProfileCards();
+        }
+    }
+
+    function calculateAge(dobString) {
+        const dob = new Date(dobString.replace(/-/g, '/'));
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
     function buildProfileCards() {
         DOM.profilesContainer.innerHTML = '';
         DATA.parties.forEach(party => {
@@ -46,5 +66,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    buildProfileCards();
+    checkSession();
 });
