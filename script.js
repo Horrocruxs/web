@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let state = {
         currentSigner: null,
-        jsPdfLoaded: false
+        jsPdfLoaded: false,
+        signatures: JSON.parse(localStorage.getItem('pactSignatures')) || {}
     };
 
     function loadScript(src) {
@@ -114,9 +115,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function setupNavigation() {
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (!link.target) {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
         });
     }
@@ -133,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         DOM.dynamicSignatureArea.innerHTML = anthonySignatureHTML;
 
-        if (state.currentSigner.id === anthony.id) {
+        if (state.signatures[state.currentSigner.id]) {
             DOM.signButton.textContent = 'Pacto Sellado por ti';
             DOM.signButton.disabled = true;
             DOM.signButton.classList.add('neumorphic-pressed');
@@ -146,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const party = DATA.parties.find(p => p.id === DOM.magicIdInput.value);
         if (party) {
             state.currentSigner = party;
+            localStorage.setItem('currentSignerId', party.id);
             DOM.verificationGate.style.opacity = '0';
             setTimeout(() => {
                 DOM.verificationGate.classList.add('hidden');
@@ -190,17 +194,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function handleSignContract() {
-        if (!state.currentSigner || state.currentSigner.id === '72808434') return;
+        if (!state.currentSigner || state.signatures[state.currentSigner.id]) return;
 
         const now = new Date();
-        const timestamp = now.toLocaleString('es-PE', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'America/Lima' });
+        const timestamp = now.toISOString();
+        state.signatures[state.currentSigner.id] = timestamp;
+        localStorage.setItem('pactSignatures', JSON.stringify(state.signatures));
 
         const signatureHTML = `
             <div class="text-center transition-opacity duration-1000 opacity-0 p-4 mt-4 border-t border-dashed border-[var(--accent-gold)]" id="new-signature">
                 <p class="font-cinzel text-lg ${state.currentSigner.houseColor}">${state.currentSigner.name}</p>
                 <p class="text-sm text-[var(--text-color)]">FIRMA DIGITALMENTE VINCULADA</p>
                 <p class="text-xs font-bold ${state.currentSigner.houseColor}">${state.currentSigner.house}</p>
-                <p class="text-xs text-gray-500 mt-2">Sello mágico registrado a las: ${timestamp}</p>
+                <p class="text-xs text-gray-500 mt-2">Sello mágico registrado a las: ${new Date(timestamp).toLocaleString('es-PE')}</p>
             </div>
         `;
         DOM.dynamicSignatureArea.innerHTML += signatureHTML;
@@ -277,8 +283,8 @@ document.addEventListener('DOMContentLoaded', function () {
         addText('Y en prueba de conformidad, LAS PARTES VINCULANTES entrelazan sus manos y pronuncian su juramento ante un Testigo Mágico que sella el pacto con su varita, emitiendo las llamas que lo hacen inquebrantable.', { spacing: 15 });
         
         const signatures = [
-            { name: 'Anthony Junior Torres Lozano', role: 'PARTE VINCULANTE - Casa Slytherin', date: 'Sello mágico registrado: 25 de julio, 2025' },
-            { name: 'Lucila Mia Villalobos Yactayo', role: 'PARTE VINCULANTE - Casa Gryffindor' },
+            { id: '72808434', name: 'Anthony Junior Torres Lozano', role: 'PARTE VINCULANTE - Casa Slytherin', date: 'Sello mágico registrado: 25 de julio, 2025' },
+            { id: '75391263', name: 'Lucila Mia Villalobos Yactayo', role: 'PARTE VINCULANTE - Casa Gryffindor' },
             { name: 'Maxi', role: 'SELLO DEL TESTIGO MÁGICO - *Guardiano della galassia*', date: 'Sello registrado: 25 de julio, 2025' }
         ];
 
@@ -292,19 +298,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 doc.setFontSize(8);
                 addText(sig.date, { align: 'center', x: pageWidth / 2, spacing: 10 });
             }
+            if (state.signatures[sig.id]) {
+                 doc.setFontSize(8);
+                 addText(`Sello mágico registrado a las: ${new Date(state.signatures[sig.id]).toLocaleString('es-PE')}`, { align: 'center', x: pageWidth / 2, spacing: 10 });
+            }
         });
-
-        const newSignature = document.getElementById('new-signature');
-        if (newSignature) {
-            doc.setFont('times', 'bold');
-            doc.setFontSize(12);
-            addText(state.currentSigner.name, { align: 'center', x: pageWidth / 2 });
-            doc.setFont('times', 'normal');
-            addText('FIRMA DIGITALMENTE VINCULADA', { align: 'center', x: pageWidth / 2 });
-            addText(state.currentSigner.house, { align: 'center', x: pageWidth / 2, spacing: 0 });
-            doc.setFontSize(8);
-            addText(newSignature.querySelector('p:last-child').textContent, { align: 'center', x: pageWidth / 2 });
-        }
 
         doc.save('Pacto_de_Horcruxes_Mutuos.pdf');
     }
