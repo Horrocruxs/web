@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     let state = {
-        signatures: JSON.parse(localStorage.getItem('pactSignatures')) || {}
+        signatures: JSON.parse(sessionStorage.getItem('pactSignatures')) || {}
     };
-
+    
     function checkSession() {
-        const storedSignerId = localStorage.getItem('currentSignerId');
+        const storedSignerId = sessionStorage.getItem('currentSignerId');
         if (!storedSignerId) {
             window.location.href = 'index.html';
         } else {
