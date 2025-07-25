@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horcruxes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased">
+
+    <div id="contract-content" class="hidden opacity-0 contract-content">
+        <div id="soul-orb" class="soul-orb" title="Indicador de Estado Anímico"></div>
+
+        <nav class="bg-opacity-80 backdrop-blur-sm sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-center h-16">
+                    <div class="flex items-center">
+                        <div class="flex flex-wrap justify-center items-baseline space-x-2 sm:space-x-4">
+                            <a href="index.html" class="nav-link">Perfiles</a>
+                            <a href="#vinculo" class="nav-link">El Vínculo</a>
+                            <a href="#partes" class="nav-link">Las Partes</a>
+                            <a href="#clausulas" class="nav-link">Las Cláusulas</a>
+                            <a href="#anexo" class="nav-link">Anexo</a>
+                            <a href="#sello" class="nav-link">El Sello</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            
+            <header class="text-center mb-16">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-wider text-gryffindor">Pacto de Horcruxes Mutuos</h1>
+                <p class="mt-4 text-xl text-slytherin font-cinzel">Sellado con Juramento Inquebrantable</p>
+            </header>
+
+            <section id="vinculo" class="mb-20 py-10">
+                <h2 class="text-3xl text-center mb-4 font-cinzel text-gray-700">El Vínculo Anímico</h2>
+                <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                    Este documento interactivo explora el pacto mágico entre dos almas, unidas por la más oscura de las artes para trascender la mortalidad. Cada uno es el ancla del otro, un fragmento de su ser confiado a un receptáculo viviente. Navega por las secciones para comprender la profundidad y las implicaciones de su juramento.
+                </p>
+                <div class="flex justify-center items-center h-48">
+                    <div class="flex items-center">
+                        <div class="w-24 h-24 md:w-32 md:h-32 neumorphic-flat flex items-center justify-center text-5xl font-cinzel shadow-2xl text-[var(--gryffindor-red)]">L</div>
+                        <div class="w-24 h-2 md:w-48 md:h-3 neumorphic-inset"></div>
+                        <div class="w-24 h-24 md:w-32 md:h-32 neumorphic-flat flex items-center justify-center text-5xl font-cinzel shadow-2xl text-[var(--slytherin-green)]">A</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="partes" class="mb-20 py-10">
+                <h2 class="text-3xl text-center mb-12 font-cinzel text-gray-700">Las Partes Involucradas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="neumorphic-flat p-6 text-center">
+                        <div class="text-5xl mb-4">🐍</div>
+                        <h3 class="text-xl font-cinzel text-[var(--slytherin-green)]">Anthony J. Torres Lozano</h3>
+                        <p class="text-sm text-[var(--text-color)]">Parte Vinculante</p>
+                        <p class="text-xs mt-2 font-bold text-[var(--slytherin-green)]">CASA SLYTHERIN</p>
+                    </div>
+                    <div class="neumorphic-flat p-6 text-center">
+                        <div class="text-5xl mb-4">🦁</div>
+                        <h3 class="text-xl font-cinzel text-[var(--gryffindor-red)]">Lucila M. Villalobos Yactayo</h3>
+                        <p class="text-sm text-[var(--text-color)]">Parte Vinculante</p>
+                        <p class="text-xs mt-2 font-bold text-[var(--gryffindor-red)]">CASA GRYFFINDOR</p>
+                    </div>
+                    <div class="neumorphic-flat p-6 text-center">
+                        <div class="text-5xl mb-4">🛡️</div>
+                        <h3 class="text-xl font-cinzel text-[var(--accent-gold)]">Maxi</h3>
+                        <p class="text-sm text-[var(--text-color)]">Testigo Mágico (Bonder)</p>
+                        <p class="text-xs mt-2 font-bold text-[var(--accent-gold)]">GUARDIANO</p>
+                    </div>
+                    <div class="neumorphic-flat p-6 text-center">
+                        <div class="text-5xl mb-4">🐾</div>
+                        <h3 class="text-xl font-cinzel text-purple-800">Kid</h3>
+                        <p class="text-sm text-[var(--text-color)]">Familiar del Pacto</p>
+                        <p class="text-xs mt-2 font-bold text-purple-800">KNEAZLE</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="clausulas" class="mb-20 py-10">
+                <h2 class="text-3xl text-center mb-12 font-cinzel text-gray-700">Las Cláusulas del Juramento</h2>
+                <div id="clauses-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+            </section>
+
+            <section id="ritual-countdown" class="mb-20 py-10 text-center">
+                <h2 class="text-3xl text-center mb-12 font-cinzel text-gray-700">Ritual de Sincronización</h2>
+                <p class="max-w-2xl mx-auto mb-8">El pacto requiere un ritual de armonización para aliviar la tensión espiritual. La próxima sincronización es el día 25 del mes.</p>
+                <div class="neumorphic-flat p-8 max-w-2xl mx-auto">
+                    <div id="countdown-display" class="flex justify-around text-center">
+                        <div><span id="days" class="text-4xl font-cinzel">00</span><p class="text-xs">Días</p></div>
+                        <div><span id="hours" class="text-4xl font-cinzel">00</span><p class="text-xs">Horas</p></div>
+                        <div><span id="minutes" class="text-4xl font-cinzel">00</span><p class="text-xs">Minutos</p></div>
+                        <div><span id="seconds" class="text-4xl font-cinzel">00</span><p class="text-xs">Segundos</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="anexo" class="mb-20 py-10 text-center">
+                <h2 class="text-3xl mb-12 font-cinzel text-gray-700">Anexo A: Recuerdos Primordiales</h2>
+                <div class="max-w-2xl mx-auto space-y-6">
+                    <p class="text-2xl memory-text text-gray-700">"El recuerdo de la primera plática con la que empezó todo esto."</p>
+                    <p class="text-2xl memory-text text-gray-700">"El recuerdo de la conversación en el mar al sonido de las olas."</p>
+                    <p class="text-2xl memory-text text-gray-700">"El recuerdo del momento exacto en que se concibió la idea de este pacto."</p>
+                </div>
+            </section>
+
+            <section id="sello" class="py-10">
+                <h2 class="text-3xl text-center mb-12 font-cinzel text-gray-700">El Sello Inquebrantable</h2>
+                <div class="max-w-4xl mx-auto neumorphic-flat p-8">
+                    <p class="text-center mb-8 italic">Y en prueba de conformidad, LAS PARTES VINCULANTES entrelazan sus manos y pronuncian su juramento ante un Testigo Mágico que sella el pacto con su varita, emitiendo las llamas que lo hacen inquebrantable.</p>
+                    <div id="signatures-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div>
+                            <p class="font-cinzel text-lg">Anthony Junior Torres Lozano</p>
+                            <p class="text-sm text-[var(--text-color)]">PARTE VINCULANTE</p>
+                            <p class="text-xs font-bold text-[var(--slytherin-green)]">Casa Slytherin</p>
+                        </div>
+                        <div>
+                            <p class="font-cinzel text-lg">Lucila Mia Villalobos Yactayo</p>
+                            <p class="text-sm text-[var(--text-color)]">PARTE VINCULANTE</p>
+                            <p class="text-xs font-bold text-[var(--gryffindor-red)]">Casa Gryffindor</p>
+                        </div>
+                        <div>
+                            <p class="font-cinzel text-lg text-[var(--accent-gold)]">Maxi</p>
+                            <p class="text-sm text-[var(--text-color)]">SELLO DEL TESTIGO MÁGICO</p>
+                            <p class="text-xs font-bold text-[var(--accent-gold)]">*Guardiano della galassia*</p>
+                            <p class="text-xs text-gray-500 mt-2">Sello registrado: 25 de julio, 2025</p>
+                        </div>
+                    </div>
+                    <div id="dynamic-signature-area" class="mt-8 pt-8 neumorphic-inset mx-4"></div>
+                </div>
+            </section>
+
+            <section id="action-buttons" class="text-center mt-16 flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                 <button id="sign-button" class="neumorphic-flat text-white py-3 px-8 font-cinzel text-xl bg-[var(--accent-gold)] active:neumorphic-pressed">
+                    Firmar Contrato
+                </button>
+                <button id="download-button" class="hidden neumorphic-flat text-white py-3 px-8 font-cinzel text-xl bg-[var(--slytherin-green)] active:neumorphic-pressed">
+                    Descargar PDF
+                </button>
+            </section>
+        </main>
+
+        <footer class="mt-16">
+            <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 text-center text-xs text-[var(--text-color)]">
+                <p>Esta interfaz es una representación artística del Pacto de Horcruxes Mutuos. Creado con magia y código.</p>
+                <span id="vengeance-trigger" class="cursor-pointer text-xs">🗡️</span>
+            </div>
+        </footer>
+    </div>
+
+    <div id="security-popup" class="fixed inset-0 z-[9999] items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden">
+        <div class="neumorphic-flat p-8 max-w-sm w-full text-center">
+            <div class="text-5xl mb-4">🚫</div>
+            <h3 class="text-2xl font-cinzel text-[var(--gryffindor-red)]">Sello de Protección</h3>
+            <p class="my-4 text-[var(--text-color)]">Un encantamiento guardián protege este pacto. Las artes oscuras de la inspección están prohibidas y han sido repelidas.</p>
+            <button id="close-popup-button" class="neumorphic-flat text-white py-2 px-6 font-cinzel bg-[var(--accent-gold)] active:neumorphic-pressed">Entendido</button>
+        </div>
+    </div>
+
+    <script src="pact.js" defer></script>
+</body>
+</html>
