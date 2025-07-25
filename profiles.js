@@ -14,17 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
         signatures: JSON.parse(localStorage.getItem('pactSignatures')) || {}
     };
 
-    function calculateAge(dobString) {
-        const dob = new Date(dobString);
-        const today = new Date();
-        let age = today.getFullYear() - dob.getFullYear();
-        const m = today.getMonth() - dob.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-            age--;
-        }
-        return age;
-    }
-
     function buildProfileCards() {
         DOM.profilesContainer.innerHTML = '';
         DATA.parties.forEach(party => {
@@ -41,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h3 class="text-2xl font-cinzel ${party.houseColor} mb-6">${party.name}</h3>
                 <div class="space-y-4 text-left">
                     <p><strong>${party.house === 'Slytherin' ? '🐍' : '🦁'} Casa:</strong> ${party.house}</p>
-                    <p><strong>🎂 Cumpleaños:</strong> ${new Date(party.dob).toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' })} (${calculateAge(party.dob)} años)</p>
+                    <p><strong>🎂 Cumpleaños:</strong> ${new Date(party.dob.replace(/-/g, '/')).toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                     <h4 class="font-cinzel pt-4 border-t border-dashed border-[var(--dark-shadow)]">Mundo Mágico</h4>
                     <p><strong>🪄 Hechizo Favorito:</strong> ${party.spell}</p>
                     <p><strong>🦌 Patronus:</strong> ${party.patronus}</p>
