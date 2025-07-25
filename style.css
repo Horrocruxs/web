@@ -6,6 +6,10 @@
     --gryffindor-red: #740001;
     --slytherin-green: #1a472a;
     --accent-gold: #daa520;
+    --error-red: #b91c1c;
+    --error-bg: #fde8e8;
+    --error-light-shadow: #ffffff;
+    --error-dark-shadow: #e6c8c8;
 }
 body {
     background-color: var(--bg-color);
@@ -32,6 +36,12 @@ h1, h2, h3, .font-cinzel {
     border-radius: 20px;
     box-shadow: inset 8px 8px 16px var(--dark-shadow), inset -8px -8px 16px var(--light-shadow);
     transition: box-shadow 0.3s ease-in-out, background-color 0.5s ease;
+}
+.neumorphic-inset-error {
+    background: var(--error-bg);
+    border-radius: 12px;
+    color: var(--error-red);
+    box-shadow: inset 4px 4px 8px var(--error-dark-shadow), inset -4px -4px 8px var(--error-light-shadow);
 }
 .neumorphic-pressed {
     box-shadow: inset 5px 5px 10px var(--dark-shadow), inset -5px -5px 10px var(--light-shadow);
@@ -115,4 +125,16 @@ h1, h2, h3, .font-cinzel {
 .nav-link:hover {
     background-color: #d1c8b4;
     color: black;
+}
+#security-popup.hidden {
+    display: none;
+}
+#security-popup {
+    display: flex;
+}
+#greeting-screen.hidden {
+    display: none;
+}
+#greeting-screen {
+    display: flex;
 }
