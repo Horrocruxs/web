@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const card = document.createElement('div');
         card.className = 'neumorphic-flat p-8 max-w-lg w-full';
         card.innerHTML = `
-            <h3 class="text-2xl font-cinzel ${party.houseColor} mb-6">${party.name}</h3>
+            <h3 class="text-2xl font-cinzel ${party.houseColor} mb-6 text-center">${party.name}</h3>
             <div class="space-y-4 text-left">
                 <p><strong>${party.house === 'Slytherin' ? '🐍' : '🦁'} Casa:</strong> ${party.house}</p>
                 <p><strong>🎂 Cumpleaños:</strong> ${new Date(party.dob.replace(/-/g, '/')).toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
@@ -59,7 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p><strong>🎨 Color Favorito:</strong> ${party.color}</p>
                 <p><strong>🍰 Postre Favorito:</strong> ${party.dessert}</p>
                 <p><strong>🎮 Hobby:</strong> ${party.hobby}</p>
-                <h4 class="font-cinzel pt-4 border-t border-dashed border-[var(--dark-shadow)]">Hechizos Vinculantes</h4>
+            </div>
+            <div class="text-center mt-4 pt-4 border-t border-dashed border-[var(--dark-shadow)]">
+                <h4 class="font-cinzel mb-4">Hechizos Vinculantes</h4>
                 <a href="horcruxes.html" class="neumorphic-flat text-white py-2 px-6 font-cinzel text-sm bg-[var(--accent-gold)] active:neumorphic-pressed inline-block">Pacto de Horcruxes Mutuos</a>
                 ${signatureInfo}
             </div>
