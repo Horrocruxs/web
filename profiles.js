@@ -1,4 +1,4 @@
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
     const DOM = {
         profilesContainer: document.getElementById('profiles-container')
     };
@@ -10,9 +10,18 @@
         ]
     };
 
-    const state = {
+    let state = {
         signatures: JSON.parse(sessionStorage.getItem('pactSignatures')) || {}
     };
+    
+    function checkSession() {
+        const storedSignerId = sessionStorage.getItem('currentSignerId');
+        if (!storedSignerId) {
+            window.location.href = 'index.html';
+        } else {
+            buildProfileCards();
+        }
+    }
 
     function calculateAge(dobString) {
         const dob = new Date(dobString.replace(/-/g, '/'));
@@ -25,16 +34,19 @@
         return age;
     }
 
-    function createProfileCardHTML(party) {
-        const signatureInfo = state.signatures[party.id]
-            ? `<div class="mt-4 pt-4 border-t border-dashed border-[var(--accent-gold)]">
-                 <p class="font-cinzel text-sm text-[var(--accent-gold)]">Pacto Firmado</p>
-                 <p class="text-xs text-gray-500">${new Date(state.signatures[party.id]).toLocaleString('es-PE')}</p>
-               </div>`
-            : '';
+    function buildProfileCards() {
+        DOM.profilesContainer.innerHTML = '';
+        DATA.parties.forEach(party => {
+            const signatureInfo = state.signatures[party.id] 
+                ? `<div class="mt-4 pt-4 border-t border-dashed border-[var(--accent-gold)]">
+                     <p class="font-cinzel text-sm text-[var(--accent-gold)]">Pacto Firmado</p>
+                     <p class="text-xs text-gray-500">${new Date(state.signatures[party.id]).toLocaleString('es-PE')}</p>
+                   </div>` 
+                : '';
 
-        return `
-            <div class="neumorphic-flat p-8">
+            const card = document.createElement('div');
+            card.className = 'neumorphic-flat p-8';
+            card.innerHTML = `
                 <h3 class="text-2xl font-cinzel ${party.houseColor} mb-6">${party.name}</h3>
                 <div class="space-y-4 text-left">
                     <p><strong>${party.house === 'Slytherin' ? '🐍' : '🦁'} Casa:</strong> ${party.house}</p>
@@ -49,22 +61,10 @@
                     <p><strong>🎮 Hobby:</strong> ${party.hobby}</p>
                     ${signatureInfo}
                 </div>
-            </div>
-        `;
+            `;
+            DOM.profilesContainer.appendChild(card);
+        });
     }
 
-    function renderProfileCards() {
-        DOM.profilesContainer.innerHTML = DATA.parties.map(createProfileCardHTML).join('');
-    }
-
-    function initialize() {
-        const storedSignerId = sessionStorage.getItem('currentSignerId');
-        if (!storedSignerId) {
-            window.location.href = 'index.html';
-        } else {
-            renderProfileCards();
-        }
-    }
-
-    initialize();
-})();
+    checkSession();
+});
